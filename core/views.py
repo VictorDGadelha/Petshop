@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.contrib.auth import logout
 from .models import Cliente, Pet, Servico, Agendamento
 from .forms import ClienteForm, PetForm, ServicoForm, AgendamentoForm
@@ -25,7 +26,15 @@ def listar_pets(request):
 @login_required
 def listar_clientes(request):
 
+    pesquisa = request.GET.get('q', '')
+
     clientes = Cliente.objects.all()
+
+    if pesquisa:
+        clientes = clientes.filter(
+            Q(nome__icontains=pesquisa) |
+            Q(email__icontains=pesquisa)
+        )
 
     return render(request, 'clientes/listar.html', {
         'clientes': clientes
@@ -63,12 +72,13 @@ def editar_cliente(request, id):
 
 
 @login_required
-def deletar_cliente(request, id):
+def alterar_status_cliente(request, id):
 
     cliente = get_object_or_404(Cliente, id=id)
 
     if request.method == 'POST':
-        cliente.delete()
+        cliente.ativo = not cliente.ativo
+        cliente.save()
         return redirect('listar_clientes')
 
     return render(request, 'clientes/deletar.html', {

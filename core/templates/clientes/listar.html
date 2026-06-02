@@ -26,6 +26,25 @@ Clientes
 
 </div>
 
+<div class="search-container">
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar por nome ou e-mail..."
+            value="{{ request.GET.q }}"
+        >
+
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+    </form>
+
+</div>
+
 <div class="table-container">
 
     <table>
@@ -37,6 +56,7 @@ Clientes
                 <th>Telefone</th>
                 <th>Email</th>
                 <th>Endereço</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
 
@@ -53,14 +73,34 @@ Clientes
                 <td>{{ cliente.email }}</td>
                 <td>{{ cliente.endereco }}</td>
 
+                <td>
+
+                    {% if cliente.ativo %}
+                        <span class="status-ativo">
+                            Ativo
+                        </span>
+                    {% else %}
+                        <span class="status-inativo">
+                            Inativo
+                        </span>
+                    {% endif %}
+
+                </td>
+
                 <td class="actions">
 
                     <a href="{% url 'editar_cliente' cliente.id %}" class="btn-edit">
                         <i class="fa-solid fa-pen"></i>
                     </a>
 
-                    <a href="{% url 'deletar_cliente' cliente.id %}" class="btn-delete">
-                        <i class="fa-solid fa-trash"></i>
+                    <a href="{% url 'alterar_status_cliente' cliente.id %}" class="btn-status">
+
+                        {% if cliente.ativo %}
+                            <i class="fa-solid fa-user-slash"></i>
+                        {% else %}
+                            <i class="fa-solid fa-user-check"></i>
+                        {% endif %}
+
                     </a>
 
                 </td>
@@ -71,7 +111,7 @@ Clientes
 
             <tr>
 
-                <td colspan="5">
+                <td colspan="6">
                     Nenhum cliente cadastrado.
                 </td>
 

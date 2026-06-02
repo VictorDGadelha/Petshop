@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Excluir Cliente
+Alterar Status do Cliente
 {% endblock %}
 
 {% block extra_css %}
@@ -16,19 +16,53 @@ Excluir Cliente
 
     <i class="fa-solid fa-circle-exclamation warning-icon"></i>
 
-    <h1>Excluir Cliente</h1>
+    <h1>Alterar Status do Cliente</h1>
 
     <p>
-        Deseja realmente excluir
+        Deseja realmente
+        {% if cliente.ativo %}
+            <strong>inativar</strong>
+        {% else %}
+            <strong>ativar</strong>
+        {% endif %}
+        o cliente
         <strong>{{ cliente.nome }}</strong>?
     </p>
+
+    <div class="cliente-info">
+
+        {% if cliente.telefone %}
+        <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+        {% endif %}
+
+        {% if cliente.email %}
+        <p><strong>Email:</strong> {{ cliente.email }}</p>
+        {% endif %}
+
+        <p>
+            <strong>Status Atual:</strong>
+
+            {% if cliente.ativo %}
+                <span class="status-ativo">Ativo</span>
+            {% else %}
+                <span class="status-inativo">Inativo</span>
+            {% endif %}
+        </p>
+
+    </div>
 
     <form method="POST">
 
         {% csrf_token %}
 
         <button type="submit" class="btn-delete-confirm">
-            Confirmar Exclusão
+
+            {% if cliente.ativo %}
+                Confirmar Inativação
+            {% else %}
+                Confirmar Ativação
+            {% endif %}
+
         </button>
 
         <a href="{% url 'listar_clientes' %}" class="btn-cancel">

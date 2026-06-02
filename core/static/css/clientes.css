@@ -29,6 +29,51 @@
     background: #1d3557;
 }
 
+/* =========================
+   PESQUISA
+========================= */
+
+.search-container {
+    margin-bottom: 25px;
+}
+
+.search-container form {
+    display: flex;
+    max-width: 500px;
+}
+
+.search-container input {
+    flex: 1;
+    height: 45px;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px 0 0 12px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #3751ff;
+}
+
+.search-container button {
+    width: 55px;
+    border: none;
+    background: #17325c;
+    color: white;
+    border-radius: 0 12px 12px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-container button:hover {
+    background: #112240;
+}
+
+/* =========================
+   TABELA
+========================= */
+
 .table-container {
     background: white;
     border-radius: 18px;
@@ -45,10 +90,15 @@ thead {
     background: #17325c;
 }
 
+thead tr:hover {
+    background: #17325c;
+}
+
 th {
     padding: 16px;
     text-align: left;
-    color: white;
+    color: white !important;
+    font-weight: 600;
 }
 
 td {
@@ -56,13 +106,43 @@ td {
     border-top: 1px solid #eee;
 }
 
+tbody tr:hover {
+    background: #fafafa;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-ativo {
+    background: #e8fff0;
+    color: #1f9d55;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-inativo {
+    background: #ffecec;
+    color: #e63946;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+
 .actions {
     display: flex;
     gap: 10px;
 }
 
 .btn-edit,
-.btn-delete {
+.btn-status {
     width: 38px;
     height: 38px;
     border-radius: 10px;
@@ -78,15 +158,19 @@ td {
     color: #3751ff;
 }
 
-.btn-delete {
-    background: #ffecec;
-    color: #ff4d4d;
+.btn-status {
+    background: #fff3e0;
+    color: #ff9800;
 }
 
 .btn-edit:hover,
-.btn-delete:hover {
+.btn-status:hover {
     transform: scale(1.05);
 }
+
+/* =========================
+   FORMULÁRIO
+========================= */
 
 .form-container {
     max-width: 700px;
@@ -157,6 +241,10 @@ td {
     background: #1d3557;
 }
 
+/* =========================
+   EXCLUIR CLIENTE
+========================= */
+
 .delete-container {
     max-width: 500px;
     background: white;
@@ -192,10 +280,18 @@ td {
     margin-right: 10px;
 }
 
+.btn-delete-confirm:hover {
+    opacity: 0.9;
+}
+
 .btn-cancel {
     background: #f1f1f1;
     color: #333;
     padding: 14px 20px;
     border-radius: 10px;
     text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background: #e5e5e5;
 }
