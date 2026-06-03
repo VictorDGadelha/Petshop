@@ -126,24 +126,23 @@ def deletar_pet(request, id):
         'pet': pet
     })
 
-@login_required
-def listar_servicos(request):
-
-    servicos = Servico.objects.all()
-
-    return render(request, 'servicos/listar.html', {
-        'servicos': servicos
-    })
-
-# SERVIÇOS
 
 @login_required
 def listar_servicos(request):
+    
+    pesquisa = request.GET.get('q','')
 
     servicos = Servico.objects.all()
+    
+    if pesquisa:
+        servicos = servicos.filter(
+            Q(nome__icontains=pesquisa) |
+            Q(preco__icontains=pesquisa)
+        )
 
     return render(request, 'servicos/listar.html', {
-        'servicos': servicos
+        'servicos': servicos,
+        'pesquisa': pesquisa
     })
 
 
@@ -231,15 +230,17 @@ def listar_agendamentos(request):
             pet_id=pet_id,
             servico_id=servico_id,
             data=data,
-            horario=horario
+            horario=horario,
+            status='PENDENTE'
         )
 
         return redirect('listar_agendamentos')
 
-    agendamentos = Agendamento.objects.all()
+    agendamentos = Agendamento.objects.all().order_by('data','horario')
 
     clientes = Cliente.objects.all()
-    pets = Pet.objects.all()
+    pesquisa = request.GET.get('q','')
+    pets = Pet.objects.filter(nome__icontains=pesquisa) 
     servicos = Servico.objects.all()
 
     return render(request, 'agendamentos/listar.html', {
@@ -250,6 +251,7 @@ def listar_agendamentos(request):
     })
 
 
+@login_required
 def criar_agendamento(request):
 
     form = AgendamentoForm(request.POST or None)
@@ -263,11 +265,12 @@ def criar_agendamento(request):
     })
 
 
+@login_required
 def editar_agendamento(request, id):
 
     agendamento = get_object_or_404(Agendamento, id=id)
 
-    clientes = Cliente.objects.all()
+    clientes = Cliente.objects.all().order_by('nome')
     pets = Pet.objects.all()
     servicos = Servico.objects.all()
 
@@ -294,6 +297,7 @@ def editar_agendamento(request, id):
     })
 
 
+@login_required
 def deletar_agendamento(request, id):
 
     agendamento = get_object_or_404(

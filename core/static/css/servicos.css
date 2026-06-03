@@ -14,6 +14,7 @@
     align-items:center;
     margin-bottom:30px;
     gap:20px;
+    flex-wrap:wrap;
 }
 
 .titulo{
@@ -27,18 +28,97 @@
 }
 
 .btn-novo{
-    background: #112240;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s;
+    background:#112240;
+    color:white;
+    padding:12px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:500;
+    transition:0.3s;
 }
 
 .btn-novo:hover{
-    background: #1d3557;
+    background:#1d3557;
 }
+
+/* PESQUISA */
+
+.search-container{
+    margin-bottom:25px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.search-container form{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    width:100%;
+    max-width:420px;
+
+    background:white;
+
+    padding:8px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.search-container input{
+    flex:1;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    padding:12px 15px;
+
+    font-size:15px;
+
+    color:#333;
+}
+
+.search-container input::placeholder{
+    color:#999;
+}
+
+.search-container button{
+    width:45px;
+    height:45px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#17325c;
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+
+    transition:0.3s;
+}
+
+.search-container button:hover{
+    background:#c6922d;
+
+    transform:scale(1.05);
+}
+
+.search-container form:focus-within{
+    box-shadow:0 0 0 3px rgba(198,146,45,0.25);
+}
+
+/* TABELA */
 
 .tabela-container{
     background:white;
@@ -68,6 +148,7 @@ table td{
 .acoes{
     display:flex;
     gap:10px;
+    flex-wrap:wrap;
 }
 
 .btn-editar,
@@ -77,9 +158,12 @@ table td{
     text-decoration:none;
     font-size:14px;
     font-weight:600;
+
     display:flex;
     align-items:center;
     gap:8px;
+
+    transition:0.3s;
 }
 
 .btn-editar{
@@ -87,9 +171,17 @@ table td{
     color:#17325c;
 }
 
+.btn-editar:hover{
+    transform:translateY(-1px);
+}
+
 .btn-excluir{
     background:#ffecec;
     color:#c0392b;
+}
+
+.btn-excluir:hover{
+    transform:translateY(-1px);
 }
 
 .vazio{
@@ -97,10 +189,11 @@ table td{
     color:#666;
 }
 
-/* FORMULÁRIO */
+/* FORMULÁRIOS */
 
 .pagina-centralizada{
     padding:40px;
+
     display:flex;
     justify-content:center;
 }
@@ -108,9 +201,13 @@ table td{
 .card{
     width:100%;
     max-width:550px;
+
     background:white;
+
     border-radius:14px;
+
     padding:30px;
+
     box-shadow:0 0 10px rgba(0,0,0,0.08);
 }
 
@@ -140,24 +237,36 @@ table td{
 
 .form-group label{
     margin-bottom:8px;
+
     font-weight:600;
+
     color:#17325c;
 }
 
-.form-group input{
+.form-group input,
+.form-group select,
+.form-group textarea{
     padding:12px;
+
     border:1px solid #dcdcdc;
+
     border-radius:8px;
+
     outline:none;
+
+    font-size:15px;
 }
 
-.form-group input:focus{
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
     border-color:#c6922d;
 }
 
 .botoes{
     display:flex;
     gap:15px;
+
     margin-top:10px;
 }
 
@@ -165,16 +274,25 @@ table td{
 .botao-excluir,
 .botao-cancelar{
     flex:1;
+
     padding:12px;
+
     border:none;
+
     border-radius:8px;
+
     text-decoration:none;
+
     font-weight:600;
+
     display:flex;
     align-items:center;
     justify-content:center;
     gap:8px;
+
     cursor:pointer;
+
+    transition:0.3s;
 }
 
 .botao{
@@ -211,4 +329,36 @@ table td{
 .info-servico p{
     margin-bottom:10px;
     color:#333;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width:768px){
+
+    .container{
+        padding:20px;
+    }
+
+    .topo{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .search-container{
+        justify-content:center;
+    }
+
+    .search-container form{
+        max-width:100%;
+    }
+
+    .botoes{
+        flex-direction:column;
+    }
+
+    table th,
+    table td{
+        padding:12px;
+    }
+
 }
